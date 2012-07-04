@@ -40,8 +40,17 @@ public class Task {
      * 
      * @return description property 
      */
-    public SimpleStringProperty getDescription() {
+    public SimpleStringProperty descriptionProperty() {
         return description;
+    }
+    
+    /**
+     * Returns the task description value.
+     * 
+     * @return description text 
+     */
+    public String getDescription() {
+        return description.get();
     }
     
     /**
@@ -58,8 +67,17 @@ public class Task {
      * 
      * @return complete property 
      */
-    public SimpleBooleanProperty getComplete() {
+    public SimpleBooleanProperty completeProperty() {
         return complete;
+    }
+    
+    /**
+     * Returns the task complete value.
+     * 
+     * @return complete value
+     */
+    public Boolean getComplete() {
+        return complete.get();
     }
     
     /**

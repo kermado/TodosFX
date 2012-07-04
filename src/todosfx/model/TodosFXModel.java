@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 
 /**
@@ -37,6 +39,14 @@ public class TodosFXModel {
         tasks = FXCollections.observableArrayList();
         completeCount = new SimpleIntegerProperty();
         incompleteCount = new SimpleIntegerProperty();
+        
+        // Update counts when changes are made to the tasks list
+        tasks.addListener(new ListChangeListener<Task>() {
+            @Override
+            public void onChanged(Change<? extends Task> change) {
+                updateCounts();
+            }
+        });
     }
     
     /**
@@ -56,7 +66,7 @@ public class TodosFXModel {
     public void addTask(String description) {
         Task task = new Task(description);
         
-        task.getComplete().addListener(new ChangeListener<Boolean>() {
+        task.completeProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
                 updateCounts();
@@ -64,7 +74,6 @@ public class TodosFXModel {
         });
         
         tasks.add(task);
-        updateCounts();
     }
     
     /**
@@ -73,7 +82,7 @@ public class TodosFXModel {
     public void clearCompleted() {
         Iterator<Task> tasksIterator = tasks.iterator();
         while (tasksIterator.hasNext()) {
-            if (tasksIterator.next().getComplete().get()) {
+            if (tasksIterator.next().getComplete()) {
                 tasksIterator.remove();
             }
         }
@@ -84,8 +93,17 @@ public class TodosFXModel {
      * 
      * @return completeCount property
      */
-    public SimpleIntegerProperty getCompleteCount() {
+    public SimpleIntegerProperty completeCountProperty() {
         return completeCount;
+    }
+    
+    /**
+     * Returns the completeCount value.
+     * 
+     * @return number of tasks marked as complete 
+     */
+    public Integer getCompleteCount() {
+        return completeCount.get();
     }
     
     /**
@@ -93,8 +111,17 @@ public class TodosFXModel {
      * 
      * @return incompleteCount property
      */
-    public SimpleIntegerProperty getIncompleteCount() {
+    public SimpleIntegerProperty incompleteCountProperty() {
         return incompleteCount;
+    }
+    
+    /**
+     * Returns the incompleteCount value.
+     * 
+     * @return number of tasks marked as incomplete
+     */
+    public Integer getIncompleteCount() {
+        return incompleteCount.get();
     }
     
     /**
@@ -103,7 +130,7 @@ public class TodosFXModel {
     private void updateCounts() {
         int count = 0;
         for (Task task : tasks) {
-            if (task.getComplete().get()) count++;
+            if (task.getComplete()) count++;
         }
         
         completeCount.set(count);

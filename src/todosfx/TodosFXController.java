@@ -129,7 +129,7 @@ public class TodosFXController implements Initializable {
      * updates the remaining tasks label with the new count.
      */
     public void configureRemainingTasks() {
-        model.getIncompleteCount().addListener(new ChangeListener<Number>() {
+        model.incompleteCountProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
                 remainingTasks.setText(newValue.intValue() + " tasks remaining");
@@ -145,7 +145,7 @@ public class TodosFXController implements Initializable {
      * as completed.
      */
     public void configureClearCompleted() {
-        model.getCompleteCount().addListener(new ChangeListener<Number>() {
+        model.completeCountProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
                 clearCompleted.setDisable(newValue.intValue() <= 0);
@@ -168,8 +168,8 @@ public class TodosFXController implements Initializable {
             
             if (item != null) {
                 CheckBox checkbox = new CheckBox();
-                checkbox.textProperty().bindBidirectional(item.getDescription());
-                checkbox.selectedProperty().bindBidirectional(item.getComplete());
+                checkbox.textProperty().bindBidirectional(item.descriptionProperty());
+                checkbox.selectedProperty().bindBidirectional(item.completeProperty());
                 setGraphic(checkbox);
             }
         }

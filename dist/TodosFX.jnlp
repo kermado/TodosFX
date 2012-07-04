@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TodosFX.jar" size="35071" download="eager" />
+    <jar href="TodosFX.jar" size="25551" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="TodosFX" >
     <param name="requiredFXVersion" value="2.0+"/>
