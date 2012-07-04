@@ -1,3 +1,3 @@
 h1. TodosFX
 
-A very simple todo-list application written in Java using JavaFX 2.  Demonstrates the use of "property bindings":http://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm.  This is my first JavaFX app.
+A very simple todo-list application written in Java using JavaFX 2.  Demonstrates the use of "property bindings":http://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm.  This is my first JavaFX app.  Note that task entries are not stored.
